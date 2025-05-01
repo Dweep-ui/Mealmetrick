@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Consultation</title>
+</head>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/css/style1.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/consultation.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">      
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.js"></script> 
+      <script type="text/javascript" src="http://rendro.github.io/easy-pie-chart/javascripts/jquery.easy-pie-chart.js"></script> 
+      <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css"> 
+      <link rel="stylesheet" type="text/css" href="http://rendro.github.io/easy-pie-chart/stylesheets/jquery.easy-pie-chart.css">
+<nav class="navbar navbar-default" style="background-color:green;">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/first" style="color:orange; background-color:green;">AI-integrated Dietary Quantification</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav" id="navbarbar">
+          <li><a href="/index">Home</a></li>
+          <li><a href="/recommend_setup">Recommendation</a></li>
+          <li><a href="/track">Tracking</a></li>
+          <li><a href="/progress">Progress</a></li>
+          <li><a href="/consultation">Consultation</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" id="navbarbar">
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    
+
+
+
+<div class="container mt-5">
+
+    <div class="row">
+    
+    <!-- Form Section -->
+    
+    <div class="col-md-6">
+    
+    <h2>Consultation Form</h2>
+    
+    <form id="consultationForm">
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <div class="input-group">
+    
+    <span class="input-group-text"><i class="fa fa-user"></i></span>
+    
+    <input type="text" class="form-control" id="patientName" placeholder="Patient Name" required>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-6">
+    
+    <div class="input-group">
+    
+    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+    
+    <input type="date" class="form-control" id="appointmentDate" required>
+    
+    </div>
+    
+    </div>
+    
+    <div class="col-md-6">
+    
+    <div class="input-group">
+    
+    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+    
+    <input type="email" class="form-control" id="patientEmail" placeholder="Email" required>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <select class="form-select" id="doctorSelect" required onchange="updateDoctorLocation()">
+    
+    <option value="" hidden>Select Doctor</option>
+    
+    <option value="Dr. Ramkirat Yadav">Dr. Ramkirat Yadav</option>
+    
+    <option value="Dr. Jackline Verghese">Dr. Jackline Verghese</option>
+    
+    <option value="Dr. Dhiren Desai">Dr. Dhiren Desai</option>
+    
+    </select>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <select class="form-select" id="appointmentType" required onchange="handleAppointmentTypeChange()">
+    
+    <option value="" hidden>Select Appointment Type</option>
+    
+    <option value="online">Online</option>
+    
+    <option value="offline">Offline</option>
+    
+    </select>
+    
+    </div>
+    
+    </div>
+    
+    <div id="onlineDetails" style="display: none;">
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <div class="input-group">
+    
+    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+    
+    <input type="time" class="form-control" id="onlineAppointmentTime">
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <input type="text" class="form-control" id="whatsappLink" readonly>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div id="offlineDetails" style="display: none;">
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <input type="text" class="form-control" id="offlineLocation" readonly>
+    
+    </div>
+    
+    </div>
+    
+    <div class="row mb-3">
+    
+    <div class="col-md-12">
+    
+    <a href="" id="googleMapLink" target="_blank" class="btn btn-secondary w-100">View on Google Maps</a>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="text-center">
+    
+    <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+    
+    </div>
+    
+    </form>
+    
+    </div>
+    
+    
+    
+    <!-- Display Section -->
+    
+    <div class="col-md-6">
+    
+    <h2>Appointment Details</h2>
+    
+    <div id="appointmentDetails" class="border border-dark rounded p-3" style="min-height: 200px;">
+    
+    <p class="text-muted">Check Your Details Here .... </p>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    <script>
+    
+    function handleAppointmentTypeChange() {
+    
+    const appointmentType = document.getElementById("appointmentType").value;
+    
+    document.getElementById("onlineDetails").style.display = appointmentType === "online" ? "block" : "none";
+    
+    document.getElementById("offlineDetails").style.display = appointmentType === "offline" ? "block" : "none";
+    
+    }
+    
+    
+    
+    function updateDoctorLocation() {
+    
+    const doctor = document.getElementById("doctorSelect").value;
+    
+    
+    
+    // Define the locations for each doctor
+    
+    const doctorLocations = {
+    
+    "Dr. Ramkirat Yadav": {
+    
+    location: "Hilton Regency, 101, First Floor, opp. Holy Family School & Dream Mall, Evershine City, Vasai East, Maharashtra 401208",
+    
+    googleMapsLink: "https://maps.app.goo.gl/CEAnjhzpYEgKX4PC7"
+    
+    },
+    
+    "Dr. Jackline Verghese": {
+    
+    location: "CR2P+X83, Jawaharlal Nehru Rd, Vasant Nagari, Nalasopara East, Vasai-Virar, Maharashtra 401209",
+    
+    googleMapsLink: "https://maps.app.goo.gl/AV8S18zYLs3T4JLb6"
+    
+    },
+    
+    "Dr. Dhiren Desai": {
+    
+    location: "Veer Savarkar Nagar, Anand Nagar, Vasai West, Vasai-Virar, Maharashtra 401202",
+    
+    googleMapsLink: "https://maps.app.goo.gl/5iRxbWF2zgEXoZ99A"
+    
+    }
+    
+    };
+    
+    
+    
+    if (doctorLocations[doctor]) {
+    
+    // Set the doctor's location in the offline location field
+    
+    document.getElementById("offlineLocation").value = doctorLocations[doctor].location;
+    
+    document.getElementById("googleMapLink").href = doctorLocations[doctor].googleMapsLink;
+    
+    
+    
+    // For online, set up WhatsApp link
+    
+    const whatsappLink = "https://wa.me/8850503361?text=Hello, I would like to consult with you.";
+    
+    document.getElementById("whatsappLink").value = whatsappLink;
+    
+    }
+    
+    }
+    
+    
+    
+    function submitForm() {
+    
+    const name = document.getElementById("patientName").value;
+    
+    const email = document.getElementById("patientEmail").value;
+    
+    const appointmentDate = document.getElementById("appointmentDate").value;
+    
+    const doctor = document.getElementById("doctorSelect").value;
+    
+    const appointmentType = document.getElementById("appointmentType").value;
+    
+    
+    
+    if (!name || !email || !appointmentDate || !doctor || !appointmentType) {
+    
+    alert("Please fill in all required fields.");
+    
+    return;
+    
+    }
+    
+    
+    
+    const appointmentDetails = `
+    
+    <b>Name:</b> ${name} <br>
+    
+    <b>Email:</b> ${email} <br>
+    
+    <b>Appointment Date:</b> ${appointmentDate} <br>
+    
+    <b>Doctor:</b> ${doctor} <br>
+    
+    <b>Appointment Type:</b> ${appointmentType === "online" ? "Online" : "Offline"} <br>
+    
+    <b>Location:</b> ${appointmentType === "offline" ? document.getElementById("offlineLocation").value : "N/A"} <br>
+    
+    <b>Google Maps Link:</b> <a href="${document.getElementById('googleMapLink').href}" target="_blank">View Location</a><br>
+    
+    <b>WhatsApp Link:</b> <a href="${document.getElementById('whatsappLink').value}" target="_blank">Chat with the doctor</a><br>
+    
+    `;
+    
+    document.getElementById("appointmentDetails").innerHTML = appointmentDetails;
+    
+    }
+    
+    </script>
+    
+    </body>
+    
+    </html>
